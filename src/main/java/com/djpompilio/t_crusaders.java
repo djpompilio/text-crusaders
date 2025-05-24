@@ -76,7 +76,7 @@ public class t_crusaders {
         aboutFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
         aboutFrame.setSize(400, 150);        
         JLabel aboutLabel = new JLabel("About", SwingConstants.CENTER);
-        JLabel aboutLabelEDB = new JLabel("Early Development Build v.1.6", SwingConstants.CENTER);
+        JLabel aboutLabelEDB = new JLabel("Early Development Build v.2.0-SNAPSHOT", SwingConstants.CENTER);
         JLabel aboutLabelGame = new JLabel("Text Crusaders (working title) RPG/Adventure Game", SwingConstants.CENTER);
         JLabel aboutLabelGameBy = new JLabel("by: ", SwingConstants.CENTER);
         JLabel aboutLabelGameME = new JLabel("Dominic Pompilio :)", SwingConstants.CENTER);
@@ -151,7 +151,7 @@ public class t_crusaders {
         diff_NORMALMenuItem.setSelected(true);
         JRadioButtonMenuItem diff_EASYMenuItem = new JRadioButtonMenuItem("Easy");
         JRadioButtonMenuItem diff_HARDMenuItem = new JRadioButtonMenuItem("Hard");
-        JRadioButtonMenuItem diff_ANNOYINGMenuItem = new JRadioButtonMenuItem("Almost Unplayable"); //add warning to player upon selection
+        JRadioButtonMenuItem diff_FUCKEDMenuItem = new JRadioButtonMenuItem("Almost Unplayable"); //TODO add warning to player upon selection
 
 
         JMenuItem helpMenuItem = new JMenuItem("Help");
@@ -178,12 +178,12 @@ public class t_crusaders {
         diffGroup.add(diff_NORMALMenuItem);
         diffGroup.add(diff_EASYMenuItem);
         diffGroup.add(diff_HARDMenuItem);
-        diffGroup.add(diff_ANNOYINGMenuItem);
+        diffGroup.add(diff_FUCKEDMenuItem);
         
         diffMenu.add(diff_EASYMenuItem);
         diffMenu.add(diff_NORMALMenuItem);
         diffMenu.add(diff_HARDMenuItem);
-        diffMenu.add(diff_ANNOYINGMenuItem);
+        diffMenu.add(diff_FUCKEDMenuItem);
 
         settMenu.addSeparator();
         settMenu.add(diffMenu);
@@ -207,6 +207,32 @@ public class t_crusaders {
             public void actionPerformed(ActionEvent e) {
                 player player = new player();
                 newGameFrame.setVisible(true);
+                
+                }
+            });  
+
+        diff_EASYMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player.setDiffMult(1);
+                }
+            });
+        diff_NORMALMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player.setDiffMult(2);
+                }
+            }); 
+        diff_HARDMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player.setDiffMult(3);
+                }
+            });  
+        diff_FUCKEDMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player.setDiffMult(4);
                 }
             });  
 

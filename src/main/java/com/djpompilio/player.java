@@ -4,34 +4,34 @@ public class player {
     //health, level, luck, speed, strength, charisma, gold coins
 
     //Basic player stats
-    String name = new String("Unknown");
-    int hp = 100;
-    int lvl = 0;
-    int xp = 0; //max of 100
-    int gc = 0;
+    static String name = new String("Unknown");
+    static int hp = 100;
+    static int lvl = 0;
+    static int xp = 0; //max of 100
+    static int gc = 0;
 
-    double diffMult = 0.5; //ratio of events triggered. 0.5 - Normal Difficulty: 50/50 split between triggering an event and being safe(either nothing happens, story progresses or loot or some other bonus)
+    static double diffMult = 0.5; //ratio of events triggered. 0.5 - Normal Difficulty: 50/50 split between triggering an event and being safe(either nothing happens, story progresses or loot or some other bonus)
 
     //Attributes
-    int strength = 0;
-    int speed = 0;
-    int charisma = 0;
-    int luck = 0;
+    static int strength = 0;
+    static int speed = 0;
+    static int charisma = 0;
+    static int luck = 0;
 
-    int getHealth(){
+    static int getHealth(){
         return hp;
     }
-    void setHealth(int x){
+    static void setHealth(int x){
         hp = x;
     }
-    void addHealth(int x){
+    static void addHealth(int x){
         hp += x;
     }
     
-    int getLevel(){
+    static int getLevel(){
         return lvl;
     }
-    boolean addXp(int x){
+    static boolean addXp(int x){
         xp += x;
         if(xp == 100) {
             xp = 0;
@@ -48,44 +48,68 @@ public class player {
         }
 
     }
-    int getCoins(){
+    static int getCoins(){
         return gc;
     }
-    void removeCoins(int x){
+    static void removeCoins(int x){
         gc -= x;
     }
-    void addCoins(int x){
+    static void addCoins(int x){
         gc += x;
     }
 
-    int getStrength(){
+    static int getStrength(){
         return strength;
     }
-    int getSpeed(){
+    static int getSpeed(){
         return speed;
     }
-    int getCharisma(){
+    static int getCharisma(){
         return charisma;
     }
-    int getLuck(){
+    static int getLuck(){
         return luck;
     }
 
-    void addStrength(int x){
+    static void addStrength(int x){
         strength += x;
     }
-    void addSpeed(int x){
+    static void addSpeed(int x){
         speed += x;
     }
-    void addCharisma(int x){
+    static void addCharisma(int x){
         charisma += x;
     }
-    void addLuck(int x){
+    static void addLuck(int x){
         luck += x;
     }
 
-    void setDiffMult(int x){
+    static void setDiffMult(int Difficulty){
+        if(Difficulty == 1){
+            diffMult = 0.20;
+            System.out.println("easy");
+        }
+        else if(Difficulty == 2){
+            diffMult = 0.50;
+            System.out.println("normal");
+        }
+        else if(Difficulty == 3){
+            diffMult = 0.70;
+            System.out.println("hard");
+        }
+        else if(Difficulty == 4){
+            diffMult = 0.85;
+            System.out.println("fucked");
+        }
+        else {
+            System.out.println("Error: Value " + Difficulty + "Does not correspond to a valid difficulty level. Setting difficulty to Normal.");
+            setDiffMult(2);
+        }
 
+    }
+
+    static double getDiffMult(){
+        return(diffMult);
     }
     
 }

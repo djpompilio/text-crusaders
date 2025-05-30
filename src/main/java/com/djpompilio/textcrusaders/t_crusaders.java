@@ -1,12 +1,15 @@
 //TODO - Game - Make the story for the default character "unknown" slightly different than if the player chooses to make their own build
 //TODO clean up code for readability comments
 //TODO internal frame for inventory
+//TODO basic text mode/cleaner text log ui with font  -- toggle in settings
 
 /* Text Crusaders
  * Dominic Pompilio © 2025
  * Text Based RPG
  * 
  */
+
+
 
 package com.djpompilio.textcrusaders;
 
@@ -25,14 +28,8 @@ public class t_crusaders {
     static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
     public static void main(String[] args) {
 
-        String currentCmd = new String("help");
-        int stVal = 0;
-        int spVal = 0;
-        int luVal = 0;
-        int chVal = 0;
-        
+        //OS Check
 
-        //os check
         String os = System.getProperty("os.name");
         CharSequence macoschar = "Mac OS";
         CharSequence winoschar = "Windows";
@@ -40,6 +37,7 @@ public class t_crusaders {
 
         if (os.contains(macoschar)) {
             System.setProperty( "apple.laf.useScreenMenuBar", "true" );
+            System.setProperty( "com.apple.mrj.application.apple.menu.about.name", "Text Crusaders" );
         }
         else if (os.contains(winoschar)){
         
@@ -48,17 +46,30 @@ public class t_crusaders {
 
         }
 
-        //Window Components
+
+        //----------------------------------------------------------------
+
+
+        String currentCmd = new String("help");
+        int stVal = 0;
+        int spVal = 0;
+        int luVal = 0;
+        int chVal = 0;
+
+
+        //Font enf = new Font("");
         
 
-        //Full Windows
+        //Standalone Windows
+
 
         //Main Window
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(1280, 800);
-        frame.setTitle(os);
-        frame.setIconImage(null);
+
+        JFrame gameFrame = new JFrame();
+        gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gameFrame.setSize(1280, 800);
+        gameFrame.setTitle("Text Crusaders");
+        gameFrame.setIconImage(null);
         JPanel framePanel = new JPanel();
         framePanel.setLayout(null);
 
@@ -67,15 +78,39 @@ public class t_crusaders {
 
 
         //Credits Window
-        JFrame creditsFrame = new JFrame();
-        JTabbedPane creditsPane = new JTabbedPane();
+        JFrame creditsFrame = new JFrame("Credits and Open Source Licenses");
+        creditsFrame.setSize(550, 400);
+               
+        JTabbedPane creditsTabPane = new JTabbedPane();
+  
+
+        JPanel page1 = new JPanel();
+        page1.add(new JLabel("This is Tab 1"));
+                
+        JPanel page2 = new JPanel();
+        page2.add(new JLabel("This is Tab 2"));
+ 
+        JPanel page3 = new JPanel();
+        page3.add(new JLabel("This is Tab 3"));
+
+                
+        creditsTabPane.addTab("Music", page1);
+        creditsTabPane.addTab("Software", page2);
+        creditsTabPane.addTab("Software 2", page3);
+
+
+        creditsFrame.add(creditsTabPane);
+        creditsFrame.setAlwaysOnTop(true);
+        creditsFrame.setLocationByPlatform(true);
+
 
         
         //About Window
         JFrame aboutFrame = new JFrame();
         aboutFrame.setTitle("About");
         aboutFrame.setLayout(new FlowLayout(FlowLayout.CENTER));
-        aboutFrame.setSize(400, 150);        
+        aboutFrame.setSize(400, 150);     
+        //TODO Do whats below better than this   
         JLabel aboutLabel = new JLabel("About", SwingConstants.CENTER);
         JLabel aboutLabelEDB = new JLabel("Early Development Build v.2.0.0", SwingConstants.CENTER);
         JLabel aboutLabelGame = new JLabel("Text Crusaders (working title) RPG/Adventure Game", SwingConstants.CENTER);
@@ -107,6 +142,28 @@ public class t_crusaders {
         newGameFrame.add(inst_NG);
         newGameFrame.add(start_NG);
 
+        //Settings Window
+        JFrame allSettingsFrame = new JFrame();
+        allSettingsFrame.setLocationByPlatform(true);
+        allSettingsFrame.setSize(550, 400);
+        JTabbedPane settingsTabPane = new JTabbedPane();
+  
+
+        JPanel gameplaySettPanel = new JPanel();
+        gameplaySettPanel.add(new JLabel("This is Tab 1"));
+                
+        JPanel appearanceSettPanel = new JPanel();
+        appearanceSettPanel.add(new JLabel("This is Tab 2"));
+ 
+        
+
+                
+        settingsTabPane.addTab("Gameplay", gameplaySettPanel);
+        settingsTabPane.addTab("Appearance", appearanceSettPanel);
+
+         allSettingsFrame.add(settingsTabPane);
+        
+
 
 
 
@@ -117,6 +174,7 @@ public class t_crusaders {
         JMenu diffMenu = new JMenu("Difficulty");
         JMenu helpMenu = new JMenu("Help");
         JMenu toolsMenu = new JMenu("Tools");
+        JMenu windowsMenu = new JMenu("Windows");
 
 
 
@@ -148,6 +206,7 @@ public class t_crusaders {
         JMenuItem FullScreenMenuItem = new JMenuItem("Full Screen");
         JMenuItem WindowedMenuItem = new JMenuItem("Windowed");
         JMenuItem MapGridMenuItem = new JMenuItem("Toggle Map Gridlines");
+        JMenuItem AllSettingsMenuItem = new JMenuItem("All Settings");
 
         ButtonGroup diffGroup = new ButtonGroup();
         JRadioButtonMenuItem diff_NORMALMenuItem = new JRadioButtonMenuItem("Normal");
@@ -173,7 +232,8 @@ public class t_crusaders {
 
         toolsMenu.add(adventureGuideMenuItem);
 
-
+        settMenu.add(AllSettingsMenuItem);
+        settMenu.addSeparator();
         settMenu.add(FullScreenMenuItem);
         settMenu.add(WindowedMenuItem);
         settMenu.add(MapGridMenuItem);
@@ -201,9 +261,10 @@ public class t_crusaders {
         menuBar.add(fileMenu);
         menuBar.add(toolsMenu);
         menuBar.add(settMenu);
+        menuBar.add(windowsMenu);
         menuBar.add(helpMenu);
         
-
+        //*****INFO***** Action Listeners
 
         newMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -253,7 +314,7 @@ public class t_crusaders {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (os.contains(winoschar)) {
-                    device.setFullScreenWindow(frame);
+                    device.setFullScreenWindow(gameFrame);
                     }
                 }
             });
@@ -273,25 +334,50 @@ public class t_crusaders {
                 aboutFrame.setVisible(true);
                 aboutFrame.setAutoRequestFocus(true);
                 }
-            });    
+            });
+        creditsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                creditsFrame.setVisible(true);
+                creditsFrame.setAutoRequestFocus(true);
+                }
+            });
+        
+        AllSettingsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                allSettingsFrame.setVisible(true);
+                allSettingsFrame.setAutoRequestFocus(true);
+                }
+            });  
 
-        JInternalFrame storyLog = new JInternalFrame("Story Log", true);
-        storyLog.setSize(450,600);
-        JPanel sl_panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        sl_panel.setBackground(Color.cyan);
 
-        JTextPane sLogBox = new JTextPane();
-        sLogBox.setText("testing jtextpane for the log");
-        sLogBox.setEditable(false);
-        sLogBox.setBackground(null);
-        sLogBox.setBounds(0, 0, 450, 600);
-        sLogBox.setAutoscrolls(true);
 
-        sl_panel.add(sLogBox);
+        
 
-        storyLog.add(sl_panel);
+        JInternalFrame storyLogIF = new JInternalFrame("Story Log", true, true, true, true);
+        storyLogIF.setSize(450,600);
 
-        framePanel.add(storyLog);
+        JScrollPane sLogScrollPane = new JScrollPane(); 
+        JTextArea sLogText = new JTextArea("The Story Begins Here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet justo et erat euismod consequat at convallis erat. Proin nunc lorem, lacinia ut augue vitae, imperdiet facilisis odio. Fusce finibus vehicula tortor. Duis laoreet semper sagittis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam ultricies elementum mi vitae ultrices. Ut congue malesuada ex, quis pellentesque metus pulvinar ut. Duis ut congue nunc. Etiam placerat at erat at suscipit. Nullam vitae mauris risus. Ut sem augue, ultricies vestibulum nisi sed, dignissim porta purus. In et ex massa. Pellentesque ut ipsum egestas, consequat justo in, fermentum massa.\n" + //
+                        "\n" + //
+                        "Mauris quis fermentum velit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse metus est, mattis eu magna nec, iaculis maximus lorem. Integer blandit ut urna at venenatis. Praesent ac mi at nibh cursus scelerisque. Nulla dapibus, odio eget iaculis tempus, eros risus tincidunt velit, ac viverra leo massa sed nibh. Fusce congue urna convallis maximus efficitur.\n" + //
+                        "\n" + //
+                        "Vivamus vel accumsan neque, ultrices interdum quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elit sapien, semper et nunc at, pretium bibendum ligula. Quisque interdum, ex ac maximus interdum, justo tellus convallis urna, ut aliquam justo nibh vel tortor. Donec vitae ipsum non velit consequat porta sed ac turpis. Praesent dui nisi, tempus non finibus quis, faucibus ut lacus. Sed ut nisl sed velit vehicula finibus maximus a sem. Nam sodales sed enim eget sollicitudin. In neque enim, iaculis ut tortor eget, auctor mollis magna.\n" + //
+                        "\n" + //
+                        "Sed et tristique libero. Maecenas eleifend turpis vel sodales pellentesque. Quisque imperdiet metus et urna hendrerit rhoncus. Nunc non lobortis ligula, gravida hendrerit risus. Morbi suscipit quam in lacus tristique mollis. Ut sed libero tellus. Nulla auctor nisi metus, vitae varius felis tristique rhoncus. Praesent pretium venenatis orci, eget ullamcorper odio dictum at.\n" + //
+                        "\n" + //
+                        "Proin tempus sem eu porta vehicula. Sed imperdiet mi ut quam convallis, eget iaculis nisl rhoncus. Aenean sapien metus, dictum nec eros sed, tincidunt laoreet nibh. Ut eu ligula massa. Proin egestas turpis ut aliquet tempus. Quisque mauris turpis, pellentesque et sollicitudin at, luctus quis dui. Proin in condimentum velit. Aenean dolor neque, sollicitudin eu metus nec, egestas feugiat nulla.");
+        sLogText.setEditable(false);
+        Dimension tre = new Dimension(450, 600);
+        sLogScrollPane.setPreferredSize(tre);
+        sLogScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        //sLogText.setFont();
+        sLogText.setBackground(null);
+        sLogScrollPane.setViewportView(sLogText);
+        storyLogIF.add(sLogScrollPane);
+
+        framePanel.add(storyLogIF);
 
 
 
@@ -299,13 +385,13 @@ public class t_crusaders {
         inputBox.setSize(100, 300);
         
 
-        frame.add(inputBox, BorderLayout.SOUTH);
+        gameFrame.add(inputBox, BorderLayout.SOUTH);
         inputBox.requestFocus();
         
         inputBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sLogBox.setText(sLogBox.getText() + inputBox.getText());
+
                 inputBox.setText(null);
                 
                 }
@@ -314,7 +400,7 @@ public class t_crusaders {
    
         //health, level, luck, speed, strength, charisma, gold coins
 
-        JInternalFrame status = new JInternalFrame("Status", true);
+        JInternalFrame status = new JInternalFrame("Status", true, true, false, true);
         status.setSize(400,200);
         JPanel stat_panel = new JPanel(new GridLayout(5, 2));
         stat_panel.setBackground(Color.orange);
@@ -342,27 +428,33 @@ public class t_crusaders {
 
         framePanel.add(status);
 
-        JInternalFrame map = new JInternalFrame("Map", false);
+        JInternalFrame inventory = new JInternalFrame("Inventory", true, true, false, true);
+        inventory.setSize(400,200);
+        framePanel.add(inventory);
+
+
+
+        JInternalFrame map = new JInternalFrame("Map", false, true, false, true);
         map.setSize(400,400);
         JLabel mapErrLabel = new JLabel("Map View Unavailable :(", SwingConstants.CENTER);
         mapErrLabel.setForeground(Color.WHITE);
         map.setBackground(Color.black);
         map.add(mapErrLabel);
 
-        framePanel.add(map);
+        framePanel.add(map);                                                                                                                                                                                                                                                                                                                                 
 
 
 
 
         //Main Frame Setup
-        frame.add(framePanel);
-        frame.setLocationByPlatform(true);
-        frame.setJMenuBar(menuBar);
-        frame.setVisible(true);
+        gameFrame.add(framePanel);
+        gameFrame.setLocationByPlatform(true);
+        gameFrame.setJMenuBar(menuBar);
+        gameFrame.setVisible(true);
         
         //Internal Frames
-        storyLog.setLocation(50, 50);
-        storyLog.setVisible(true);
+        storyLogIF.setLocation(50, 50);
+        storyLogIF.setVisible(true);
         status.setLocation(800, 450);
         status.setVisible(true);
         map.setLocation(800, 50);

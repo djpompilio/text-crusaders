@@ -12,5 +12,9 @@ public class map {
     void getPlayerLocation(){
 
     }
+
+    static void saveMap(){
+
+    }
     
 }

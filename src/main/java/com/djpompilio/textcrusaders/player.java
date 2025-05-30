@@ -120,5 +120,9 @@ public class player {
             return false;
         }
     }
+
+    static void savePlayer(){
+
+    }
     
 }

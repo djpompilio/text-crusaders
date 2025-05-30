@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.djpompilio</groupId>
-    <artifactId>text-crusaders</artifactId>
+    <artifactId>t_crusaders</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

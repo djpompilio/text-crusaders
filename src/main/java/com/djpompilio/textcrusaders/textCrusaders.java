@@ -33,7 +33,7 @@ import javax.swing.*;
 public class textCrusaders {
     static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
 
 
         //OS Check
@@ -63,6 +63,9 @@ public class textCrusaders {
         int spVal = 0;
         int luVal = 0;
         int chVal = 0;
+
+        map test = new map();
+        test.saveMap();
 
 
        // Font ELFont = new Font("Eagle Lake", 0, 14);

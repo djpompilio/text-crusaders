@@ -1,21 +1,33 @@
-//TODO - Game - Make the story for the default character "unknown" slightly different than if the player chooses to make their own build
-//TODO basic text mode/cleaner text log ui with font  -- toggle in settings
+// TODO - Game - Make the story for the default character "unknown" slightly different than if the player chooses to make their own build
+// TODO basic text mode/cleaner text log ui with font  -- toggle in settings
+// TODO Pure text mode setting
 
 /* 
- * Text Crusaders
- * Dominic Pompilio © 2025
- * Text Based RPG
  * 
  * 
- *  Note: Some comments may look slightly strange or have "tags" at the begining. I am using
+ *         _____          _       ___                         _               
+ *        /__   \_____  _| |_    / __\ __ _   _ ___  __ _  __| | ___ _ __ ___ 
+ *          / /\/ _ \ \/ / __|  / / | '__| | | / __|/ _` |/ _` |/ _ \ '__/ __|
+ *         / / |  __/>  <| |_  / /__| |  | |_| \__ \ (_| | (_| |  __/ |  \__ \
+ *         \/   \___/_/\_\\__| \____/_|   \__,_|___/\__,_|\__,_|\___|_|  |___/
+ * 
+ * 
+ *                          ---Text Crusaders---
+ *                             Text Based RPG
+ * 
+ *                         © Dominic Pompilio  2025
+ *  
+ * 
+ *
+ *  Note: Some comments may look slightly strange or have "tags i.e. (#, *, ?, !)" at the begining. I am using
  *  Better Comments Next by: Edwin Xu to keep comments and things organized
  * 
- * 
+ *  
  * 
  * 
  */
 
-
+// # test
 
 package com.djpompilio.textcrusaders;
 
@@ -540,6 +552,7 @@ public class textCrusaders {
         sLogText.setEditable(false);
         sLogText.setLineWrap(true);
         sLogText.setWrapStyleWord(true);
+        sLogText.setMargin(new Insets(20, 20, 10, 10));
         
         Dimension tre = new Dimension(450, 600);
         sLogScrollPane.setPreferredSize(tre);
